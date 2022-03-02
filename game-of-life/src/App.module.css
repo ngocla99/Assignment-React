@@ -1,0 +1,14 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(50, 20px);
+  grid-gap: 1px;
+}
+
+.grid div {
+  height: 20px;
+  border: 1px solid black;
+}
+
+.grid div.black {
+  background-color: black;
+}
