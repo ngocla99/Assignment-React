@@ -1,0 +1,5 @@
+.todo {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 40rem;
+  max-width: 100%;
+}
