@@ -1,0 +1,11 @@
+.email {
+  display: grid;
+  grid-template-areas: 'box preview' 'detail detail';
+  grid-template-rows: 200px 1fr;
+  grid-template-columns: 150px 1fr;
+}
+
+.email-box {
+  font-size: small;
+  grid-area: box;
+}
