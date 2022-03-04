@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useParams } from 'react-router-dom';
 
 import Layout from './components/layout/Layout';
 import UnderConstruction from './pages/UnderConstruction';
@@ -8,12 +8,24 @@ import EmailDetail from './pages/EmailDetail';
 
 import messages from './messages.json';
 
+import { useState, useEffect } from 'react';
+
 function App() {
+  const changeUserIdHandler = (id) => {
+    console.log(id);
+  };
+
   return (
     <Layout>
       <Routes>
-        <Route path='/' element={<Email />}></Route>
-        <Route path='/messages/:userId' element={<Email />}>
+        <Route
+          path='/'
+          element={<Email onChangeUserId={changeUserIdHandler} />}
+        ></Route>
+        <Route
+          path='/messages/:userId'
+          element={<Email onChangeUserId={changeUserIdHandler} />}
+        >
           <Route path=':subject' element={<EmailPreview messages={messages} />}>
             <Route path=':id' element={<EmailDetail />}></Route>
           </Route>

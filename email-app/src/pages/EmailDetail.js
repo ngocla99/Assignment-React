@@ -1,24 +1,38 @@
 import { useParams } from 'react-router-dom';
 
-import classes from './EmailDetail';
+import classes from './EmailDetail.module.css';
+import messages from '../messages.json';
 
-const EmailDetail = (props) => {
+const EmailDetail = () => {
   const params = useParams();
   const messageId = params.id;
 
-  console.log(props.messages);
+  const [message] = messages.filter((message) => message['_id'] === messageId);
 
-  const [message] = props.messages.filter(
-    (message) => message['_id'] === messageId
-  );
+  const dateTimeFormat = (date) => {
+    const year = new Date(date).getFullYear();
+    const month = new Date(date).toLocaleDateString('en-US', {
+      month: 'long',
+    });
+    const day = String(new Date(date).getDate()).padStart(2, '0');
+    const hours = String(new Date(date).getHours()).padStart(2, '0');
+    const minutes = String(new Date(date).getMinutes()).padStart(2, '0');
+    const seconds = String(new Date(date).getSeconds()).padStart(2, '0');
 
-  //   console.log(message);
+    return `${month} ${day},${year} ${hours}:${minutes}:${seconds} ${
+      hours >= 12 ? 'PM' : 'AM'
+    }`;
+  };
+
+  const breakLineFormat = (str) => {
+    return str.replace(/(\r\n|\r|\n)/g, '<div class="mb-2"></div>');
+  };
 
   return (
     <>
       <div className={classes['email-header']}>
         <div>
-          <h4>{message.folder}</h4>
+          <h4>{message.subject}</h4>
           <p>
             {message.from}
             <i className='fa fa-long-arrow-alt-right'></i> {message.to}
@@ -26,7 +40,7 @@ const EmailDetail = (props) => {
         </div>
         <div>
           <div>
-            <p>{message.date}| date: "MMMM d, y, h:mm:ss a"</p>
+            <p>{dateTimeFormat(message.date)}</p>
           </div>
           <div>
             <button type='button' className='btn btn-primary me-1'>
@@ -43,7 +57,9 @@ const EmailDetail = (props) => {
       </div>
 
       <div className={classes['email-body']}>
-        <p></p>
+        <p
+          dangerouslySetInnerHTML={{ __html: breakLineFormat(message.body) }}
+        ></p>
       </div>
     </>
   );

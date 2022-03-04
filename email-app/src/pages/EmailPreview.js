@@ -13,8 +13,6 @@ const EmailPreview = (props) => {
     (message) => message.folder === folder
   );
 
-  console.log(messagesFolder);
-
   const dateFormat = (date) => {
     const year = new Date(date).getFullYear();
     const month = String(new Date(date).getMonth()).padStart(2, '0');

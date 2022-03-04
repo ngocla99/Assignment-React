@@ -1,8 +1,12 @@
-import { NavLink, Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
-const activeClassName = 'nav-link active';
+import { NavLink, Link, useParams } from 'react-router-dom';
+import messages from '../../messages.json';
 
 const Header = () => {
+  const users = [...new Set(messages.map((message) => message.to))];
+
+  const activeClassName = 'nav-link active';
   return (
     <div className='navheader'>
       <ul className='nav nav-tabs'>
@@ -45,12 +49,20 @@ const Header = () => {
               id='dropdownMenuLink'
               data-bs-toggle='dropdown'
               aria-expanded='false'
-            ></a>
+            >
+              {/* {users[userId]} */}
+            </a>
 
             <ul className='dropdown-menu' aria-labelledby='dropdownMenuLink'>
-              <li>
-                <a className='dropdown-item'></a>
-              </li>
+              {users.map((user, i) => {
+                return (
+                  <li key={i} style={{ cursor: 'pointer' }}>
+                    <Link className='dropdown-item' to={`/messages/${i}/inbox`}>
+                      {user}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           <button className='btn btn-primary me-1'>
