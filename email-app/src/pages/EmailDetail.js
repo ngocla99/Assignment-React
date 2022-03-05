@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 
 import classes from './EmailDetail.module.css';
 import messages from '../messages.json';
+import { Fragment } from 'react';
 
 const EmailDetail = () => {
   const params = useParams();
@@ -29,7 +30,7 @@ const EmailDetail = () => {
   };
 
   return (
-    <>
+    <Fragment>
       <div className={classes['email-header']}>
         <div>
           <h4>{message.subject}</h4>
@@ -61,7 +62,7 @@ const EmailDetail = () => {
           dangerouslySetInnerHTML={{ __html: breakLineFormat(message.body) }}
         ></p>
       </div>
-    </>
+    </Fragment>
   );
 };
 
